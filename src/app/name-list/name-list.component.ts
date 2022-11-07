@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from './../service/api.service';
 
 @Component({
   selector: 'app-name-list',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NameListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
+  }
+
+  //retrieving data for banner from api
+  getBannerData() {
+    this.api.getTrendingCryptocurrency('GBP')
+      .subscribe(res => {
+        console.log(res);
+        this.bannerData = res;
+      })
   }
 
 }
