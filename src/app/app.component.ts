@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CurrencyService } from './service/currency.service';
 
 
 @Component({
@@ -8,12 +9,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   selectedCurrency: string = 'GBP';
-
-  constructor() {
+  constructor(private currencyService: CurrencyService) {
 
   }
 
   sendCurrency(event: string) {
     console.log(event);
+    this.currencyService.setCurrency(event);
   }
 }

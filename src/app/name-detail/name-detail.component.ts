@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../service/api.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { CurrencyService } from '../service/currency.service';
 
 @Component({
   selector: 'app-name-detail',
@@ -47,7 +48,7 @@ export class NameDetailComponent implements OnInit {
   @ViewChild(BaseChartDirective) lineChart!: BaseChartDirective;
 
   // get access to the id from the router using activatedRoute
-  constructor(private api: ApiService, private activatedRoute: ActivatedRoute) { }
+  constructor(private api: ApiService, private activatedRoute: ActivatedRoute, private currencyService: CurrencyService) { }
 
   ngOnInit(): void {
     // access id using route
@@ -55,7 +56,13 @@ export class NameDetailComponent implements OnInit {
       this.coinID = val['id'];
     })
     this.getCryptocurrencyData();
-    this.getGraphData();
+    this.getGraphData(this.days);
+    this.currencyService.getCurrency()
+      .subscribe(val => {
+        this.currency = val;
+        this.getGraphData(this.days);
+        this.getCryptocurrencyData();
+      })
   }
 
   getCryptocurrencyData() {
@@ -63,13 +70,24 @@ export class NameDetailComponent implements OnInit {
       .subscribe(res => {
         this.coinData = res;
         console.log(this.coinData);
+        if(this.currency === "USD") {
+          res.market_data.current_price.gbp = res.market_data.current_price.usd;
+          res.market_data.market_cap.gbp = res.market_data.market_cap.usd;
+        }
+        res.market_data.current_price.gbp = res.market_data.current_price.gbp;
+        res.market_data.market_cap.gbp = res.market_data.market_cap.gbp;
+        this.coinData = res;
       })
   }
 
-  getGraphData() {
-    this.api.getGraphData(this.coinID, this.currency, 30)
+  getGraphData(days: number) {
+    this.days = days;
+    this.api.getGraphData(this.coinID, this.currency, this.days)
       .subscribe(res => {
-        console.log(res);
+        //async
+        setTimeout(() => {
+          this.lineChart.chart?.update();
+        }, 200);
         this.lineChartData.datasets[0].data = res.prices.map((a: any) => {
           return a[1];
         });
@@ -79,7 +97,7 @@ export class NameDetailComponent implements OnInit {
           let time = date.getHours() > 12 ?
             `${date.getHours() - 12}: ${date.getMinutes()} PM` :
             `${date.getHours()}: ${date.getMinutes()} AM`
-          return this.days === 1 ? time : date.toLocaleDateString();
+          return days === 1 ? time : date.toLocaleDateString();
         })
       })
   }

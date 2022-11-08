@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { CurrencyService } from '../service/currency.service';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 export class NameListComponent implements OnInit {
 
   cryptoBannerData: any = [];
+  currency: string = "GBP";
   //initialised later
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = ['symbol', 'current_price', 'price_change_percentage_24h', 'market_cap']
@@ -23,16 +25,22 @@ export class NameListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(private api: ApiService, private router: Router) { }
+  constructor(private api: ApiService, private router: Router, private currencyService: CurrencyService) { }
 
   ngOnInit(): void {
     this.getAllCryptoData();
     this.getCyrptoBannerData();
+    this.currencyService.getCurrency()
+      .subscribe(val => {
+        this.currency = val;
+        this.getAllCryptoData();
+        this.cryptoBannerData();
+      })
   }
 
   //retrieving data for banner from api
   getCyrptoBannerData() {
-    this.api.getTrendingCryptocurrency('GBP')
+    this.api.getTrendingCryptocurrency(this.currency)
       .subscribe(res => {
         console.log(res);
         this.cryptoBannerData = res;
@@ -40,7 +48,7 @@ export class NameListComponent implements OnInit {
   }
 
   getAllCryptoData() {
-    this.api.getCryptocurrencyData('GBP')
+    this.api.getCryptocurrencyData(this.currency)
       .subscribe(res => {
         console.log(res);
         // Assign the data to the data source for the table to render
