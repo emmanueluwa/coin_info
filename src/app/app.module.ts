@@ -12,6 +12,9 @@ import { FormsModule } from '@angular/forms';
 import { NameListComponent } from './name-list/name-list.component';
 import { NameDetailComponent } from './name-detail/name-detail.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     MatSelectModule,
     MatFormFieldModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule
 
   ],
   providers: [],

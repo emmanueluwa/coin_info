@@ -14,7 +14,7 @@
     letter-spacing: -0.0083em;
   }
 
-  h5 {
+  h6 {
     color: darkgrey;
     text-transform: capitalize;
     font-size: 0.8rem;
@@ -34,4 +34,27 @@
   height: 50%;
   display: flex;
   align-items: center;
+}
+
+.card {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  padding: 10px;
+  margin: 40px;
+  width: 100px;
+  height: 200px;
+
+  img {
+    width: 70px;
+    margin: 0 auto;
+  }
+
+  h5 {
+    font-weight: 500;
+  }
+
+  p {
+    font-weight: 700;
+  }
 }

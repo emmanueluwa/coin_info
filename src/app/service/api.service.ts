@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiService {
 
-  constructor(private http: httpClient) { }
+  constructor(private http: HttpClient) { }
 
   //collecting data from api
   getCryptocurrencyData(currency: string) {
