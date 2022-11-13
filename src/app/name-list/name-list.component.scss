@@ -61,6 +61,11 @@
 
 table {
   width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .mat-form-field {
@@ -82,7 +87,12 @@ th {
 }
 
 :host ::ng-deep tr.mat-header-row {
-  background-color: #009688;
+  // background-color: #009688;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 :host ::ng-deep tr.mat-row {

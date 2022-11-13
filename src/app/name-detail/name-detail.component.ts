@@ -24,11 +24,11 @@ export class NameDetailComponent implements OnInit {
         data: [],
         label: 'Price Trends',
         backgroundColor: 'rgba(148, 159, 177, 0.2)',
-        borderColor: '#009688',
-        pointBackgroundColor: '#009688',
-        pointBorderColor: '#009688',
-        pointHoverBackgroundColor: '#009688',
-        pointHoverBorderColor: '#009688',
+        borderColor: '#fff',
+        pointBackgroundColor: '#fff',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: '#fff',
       }
     ],
     labels: []
