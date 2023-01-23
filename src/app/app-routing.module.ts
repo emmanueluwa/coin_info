@@ -5,7 +5,7 @@ import { NameListComponent } from './name-list/name-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'name-list', pathMatch: 'full' },
-  { path: 'name-list', component: NameListComponent },
+  { path: '', component: NameListComponent },
   { path: 'name-detail/:id', component: NameDetailComponent }
 ];
 
